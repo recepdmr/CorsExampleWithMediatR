@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using CorsExampleWithMediatR.Persistance.EfCore;
 using CorsExampleWithMediatR.Persistance.EfCore.Contexts;
+using CorsExampleWithMediatR.PipelineBehaviors;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,6 +34,8 @@ namespace CorsExampleWithMediatR
             services.AddDbContext<ITestDbContext, TestDbContext>(options => options.UseInMemoryDatabase(nameof(TestDbContext)));
 
             services.AddMediatR(GetType().Assembly);
+            services.AddSingleton(typeof(IPipelineBehavior<,>), typeof(LoggingPipelineBehavior<,>));
+            services.AddSingleton(typeof(IPipelineBehavior<,>), typeof(PerformaceCounterPipelineBehavior<,>));
             services.AddAutoMapper(GetType().Assembly);
 
             services.AddSwaggerGen(options =>

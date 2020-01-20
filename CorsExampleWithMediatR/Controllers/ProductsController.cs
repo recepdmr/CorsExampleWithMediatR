@@ -1,4 +1,5 @@
 ﻿using CorsExampleWithMediatR.Products.Commands.InsertProduct;
+using CorsExampleWithMediatR.Products.Commands.UpdateProduct;
 using CorsExampleWithMediatR.Products.Queries.GetProducts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,13 @@ namespace CorsExampleWithMediatR.Controllers
         public async Task<IActionResult> PostAsync([FromBody]InsertProductCommand insertProductCommand)
         {
             return Ok(await _mediator.Send(insertProductCommand));
+        }
+
+
+        [HttpPut]
+        public async Task<IActionResult> PutAsync([FromBody] UpdateProductCommand updateProductCommand)
+        {
+            return Ok(await _mediator.Send(updateProductCommand));
         }
     }
 }
