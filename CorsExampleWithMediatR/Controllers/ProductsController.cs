@@ -3,6 +3,7 @@ using CorsExampleWithMediatR.Products.Commands.UpdateProduct;
 using CorsExampleWithMediatR.Products.Queries.GetProducts;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace CorsExampleWithMediatR.Controllers
@@ -11,6 +12,13 @@ namespace CorsExampleWithMediatR.Controllers
     [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
+        private readonly ILogger<ProductsController> _logger;
+        public ProductsController(ILogger<ProductsController> logger)
+        {
+            _logger = logger;
+
+            _logger.LogError("TEST");
+        }
         private readonly IMediator _mediator;
 
         public ProductsController(IMediator mediator)
